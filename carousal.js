@@ -1,5 +1,10 @@
 class imageCarousal {
-
+   /**
+    * 
+    * @param {String} containerId 
+    * @param {Number} delayTime in ms 1000ms, 3000ms
+    * @param {Number} transitionTime in FPS eg: 60fps, 30 fps
+    */
     
     constructor(containerId, delayTime, transitionTime){
 
@@ -28,6 +33,7 @@ class imageCarousal {
 
     }  
 
+    //container design
     createContainer() {
         this.container.style.width = this.width + 'px';
         this.container.style.height = this.height + 'px';
@@ -36,6 +42,7 @@ class imageCarousal {
         this.container.style.position = 'relative';
     }
 
+    //wrapper
     createWrapper(){
         this.wrapper.style.width = this.width * this.imageLength + 'px'
         this.wrapper.style.height = this.height + 'px'
@@ -44,6 +51,7 @@ class imageCarousal {
         this.wrapper.style.left = '0px'
     }
 
+    //button
     previousBtn() {
         this.previousButton.setAttribute('id', '#previousButton');
         this.previousButton.setAttribute('class', 'left');
@@ -80,6 +88,7 @@ class imageCarousal {
         this.container.appendChild(this.nextButton);
     }
 
+    //indicator
     createIndicatorWrapper(){
         this.indicator_wrapper.className = "indicator_wrapper";
         this.indicator_wrapper.style.display = "inline-block";
@@ -118,15 +127,23 @@ class imageCarousal {
             this.indicator_list.push(this.indicator)
         }    
     }
-
+            /**
+             * 
+             * @param {Number} index 
+             */
         setActiveDot(index){
             for(var i=0; i<this.indicator_list.length; i++){
                 if (index === i){
-                    this.indicator_list[i].style.backgroundColor = '#3694EE'
-                } else this.indicator_list[i].style.backgroundColor = '#AFACAB'
+                    this.indicator_list[i].style.backgroundColor = '#ffffff'
+                } else this.indicator_list[i].style.backgroundColor = '#B6B6B6'
             }
         }
 
+        /**
+         * 
+         * @param {Number} currentIndex 
+         * @param {Number} nextIndex 
+         */
     imageTrasnsition(currentIndex, nextIndex){
 
 
@@ -163,10 +180,10 @@ class imageCarousal {
 
         return nextIndex;
 
-     //console.log(currentIndex, nextIndex)
+     
     }
 
-
+       //listeners
 
     addListeners(){
         this.previousButton.addEventListener('click',  () =>  {
@@ -189,12 +206,14 @@ class imageCarousal {
 
     }
     
+    //autoplay
     autoPlay(){
         setInterval(()=>{
             this.currentIndex = this.imageTrasnsition(this.currentIndex, (this.currentIndex +1) % this.imageLength)
         }, this.delayTime)
     }
 
+    // calls all
     carousal(){
         this.nextBtn();
         this.previousBtn();
